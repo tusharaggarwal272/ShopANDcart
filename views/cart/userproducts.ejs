@@ -1,0 +1,69 @@
+<%- include("../partials/header") %>
+<%- include("../partials/navbar") %>
+
+
+
+<main class="container">
+
+    <%- include("../partials/flash") %>
+
+
+    <div class="row">
+            <div class="col-lg-6">
+                <%for(let item of cart){%>
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="<%=item.img%>" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                            <h5 class="card-title">Rs <%=item.price%>/-</h5>
+                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                            </div>
+
+                            <form action="/user/<%=currentUser._id%>/cart/<%=item._id%>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger btn-small">Remove Product</button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                  <%}%>
+            </div>
+            <div class="col-lg-4 mb-3">
+                <ul class="list-group">
+                    <%let totalAmount=0%>
+                    <%for(let item of cart){%>
+                        <li class="list-group-item"> <strong><%=item.name%></strong> : <%=item.price%> </li>
+                        <% totalAmount+=item.price %>    
+                    <% } %> 
+                    <!-- <li class="list-group-item"> <strong>Total Amount</strong> : <%=totalAmount%> </li> -->
+                </ul>
+                
+        <div class="mt-2">
+            <p class="fw-bold" style="border: 1px dashed black; padding: 1rem;">Total Amount :  &#8377; <%=totalAmount%></p>
+            
+            <form action="/payment_gateway/payumoney" method="POST">
+              <input class="amount" type="hidden" name="amount" value="<%=totalAmount%>"/>
+              <input class="con" type="hidden" name="phone" value="9999999999" />
+              <input type="hidden" name="service_provider" 
+               value="payu_paisa"/>
+              <input type="hidden" class="product" name="productinfo" 
+               value="educational purpose"/>
+               
+               <button class="btn btn-success">Proceed To Pay</button>
+            </form>
+          
+          
+          </div>
+               
+            </div>
+       
+
+    </div>
+
+</main>
+
+
+
+<%- include("../partials/footer") %>
