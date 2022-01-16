@@ -37,13 +37,13 @@ module.exports.signUp = async (req, res) => {
     // console.log(result);
     number = `+91${number}`;
 
-    // client.messages
-    //     .create({
-    //         body: `Your Verification code is ${OTP}`,
-    //         from: '+17166870612',
-    //         to: number,
-    //     })
-    //     .then(message => console.log(message.sid));
+    client.messages
+        .create({
+            body: `Your Verification code is ${OTP}`,
+            from: '+17166870612',
+            to: number,
+        })
+        .then(message => console.log(message.sid));
     res.redirect(`/api/user/signup/verify/${nc}/${email}`);
 
 
