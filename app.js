@@ -13,7 +13,7 @@ const passport=require('passport');
 const LocalStrategy=require('passport-local');
 const User=require('./models/user');
 
-mongoose.connect('mongodb://localhost:27017/shop-app').then(()=>{
+mongoose.connect(process.env.MONGODB_URL).then(()=>{
     console.log("DB Connected");
 }).catch((err)=>{
     console.log("DB Not connected");
