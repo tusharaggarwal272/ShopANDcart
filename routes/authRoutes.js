@@ -20,10 +20,11 @@ router.get('/register', (req, res) => {
 })
 router.post('/register', async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password,number } = req.body;
         const user = new User({
             username: username,
-            email: email
+            email: email,
+            number:number
         })
 
         const newuser = await User.register(user, password);
